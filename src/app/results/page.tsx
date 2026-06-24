@@ -15,9 +15,17 @@ export default async function ResultsPage({
   return (
     <main className="flex-1 w-full max-w-3xl mx-auto px-6 py-8 flex flex-col gap-8">
       <header className="flex flex-col gap-4">
-        <Link href="/" className="text-2xl font-bold tracking-tight w-fit">
-          REVU
-        </Link>
+        <div className="flex items-center justify-between gap-3">
+          <Link href="/" className="text-2xl font-bold tracking-tight w-fit">
+            REVU
+          </Link>
+          <Link
+            href="/incentives"
+            className="text-sm underline text-black/60 dark:text-white/60 hover:no-underline"
+          >
+            Review perks
+          </Link>
+        </div>
         <SearchBar initialQuery={query} initialLocation={location ?? ""} />
       </header>
 
