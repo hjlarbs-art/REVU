@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
 
 export default function Home() {
@@ -16,6 +17,12 @@ export default function Home() {
           Single-platform reviews are stale and fragmented. We combine sources
           and surface what actually matters.
         </p>
+        <Link
+          href="/incentives"
+          className="text-sm underline text-black/60 dark:text-white/60 hover:no-underline"
+        >
+          See review perks nearby →
+        </Link>
       </div>
     </main>
   );
