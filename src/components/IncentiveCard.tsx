@@ -31,7 +31,8 @@ export default function IncentiveCard({
         </span>
         {typeof blendedRating === "number" && (
           <span className="text-xs text-black/60 dark:text-white/60">
-            REVU {blendedRating.toFixed(1)}★
+            REVU {blendedRating.toFixed(1)}
+            <span aria-hidden="true">★</span>
           </span>
         )}
       </div>
