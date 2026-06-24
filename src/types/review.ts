@@ -41,3 +41,25 @@ export interface SearchResult {
   business: BusinessResult;
   reviews: Review[];
 }
+
+export interface Coords {
+  lat: number;
+  lng: number;
+}
+
+export interface Incentive {
+  perk: string; // e.g. "Free appetizer"
+  condition: string; // e.g. "for an honest review on any platform"
+  details?: string;
+}
+
+export interface IncentiveRestaurant {
+  id: string;
+  name: string;
+  cuisine: string;
+  address: string;
+  lat: number;
+  lng: number;
+  incentive: Incentive;
+  blendedRating?: number;
+}
