@@ -1,4 +1,6 @@
 import type { Review, SearchResult } from "@/types/review";
+import { scoreReviews } from "@/lib/scoring";
+import { selectBuckets } from "@/lib/bucketing";
 
 // Phase 1 mock data. This stands in for the Apify aggregation + scoring +
 // bucketing pipeline (phases 3–4) so the full UI flow works end-to-end on
@@ -79,23 +81,23 @@ export function buildMockResult(query: string, location?: string): SearchResult 
 
   const reviews = MOCK_REVIEWS;
 
-  // Representative picks for the three buckets (best / typical / worst case).
-  const positive = reviews.find((r) => r.rating === 5) ?? reviews[0];
-  const mixed = reviews.find((r) => r.rating === 3) ?? reviews[2];
-  const negative = reviews.find((r) => r.rating === 1) ?? reviews[5];
+  // Computed from the surfaced reviews (see lib/scoring.ts, lib/bucketing.ts).
+  const { blendedRating, rawAverage } = scoreReviews(reviews);
+  const buckets = selectBuckets(reviews);
 
   return {
     business: {
       name,
       address,
-      blendedRating: 3.9,
-      rawAverage: 3.5,
+      blendedRating,
+      rawAverage,
+      // perSource stays as the platforms' own reported aggregates.
       perSource: [
         { source: "google", rating: 4.3, count: 412 },
         { source: "yelp", rating: 3.4, count: 88 },
         { source: "tripadvisor", rating: 4.1, count: 36 },
       ],
-      buckets: { positive, mixed, negative },
+      buckets,
     },
     reviews,
   };
